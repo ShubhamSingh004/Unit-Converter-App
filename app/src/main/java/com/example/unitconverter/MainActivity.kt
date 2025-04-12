@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,7 +20,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.unitconverter.ui.theme.UnitConverterTheme
 import androidx.compose.foundation.layout.PaddingValues // ✅ import for PaddingValues
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.ui.platform.LocalContext
 
@@ -50,11 +54,22 @@ fun UnitConverter(paddingValues: PaddingValues) { // ✅ accept padding
 
         })
         Row() {
-            val context = LocalContext.current
-            Button(onClick = {
-                    Toast.makeText(context, "Clicked", Toast.LENGTH_LONG).show()
-            }) {
-                Text("Click Me")
+            Box{
+                Button(onClick = {}) {
+                    Text("Select")
+                    Icon(imageVector = Icons.Default.ArrowDropDown,
+                        contentDescription = "Drop Down")
+
+                }
+            }
+
+            Box{
+                Button(onClick = {}) {
+                    Text("Select")
+                    Icon(imageVector = Icons.Default.ArrowDropDown,
+                        contentDescription = "Drop Down")
+
+                }
             }
         }
 
