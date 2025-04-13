@@ -22,6 +22,7 @@ import com.example.unitconverter.ui.theme.UnitConverterTheme
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Button
@@ -39,6 +40,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.sp
 import kotlin.math.roundToInt
 
@@ -107,7 +109,8 @@ fun UnitConverter(paddingValues: PaddingValues) {
                 inputValue = it
                 convertUnit()
         },
-            label = {Text("Enter Input Value")}
+            label = {Text("Enter Input Value")},
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
 
         )
         Spacer(modifier = Modifier.height(16.dp))
