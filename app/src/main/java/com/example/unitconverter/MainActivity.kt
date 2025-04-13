@@ -21,6 +21,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.unitconverter.ui.theme.UnitConverterTheme
 import androidx.compose.foundation.layout.PaddingValues // ✅ import for PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Button
@@ -28,6 +30,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
+import java.nio.file.WatchEvent
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,35 +53,46 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun UnitConverter(paddingValues: PaddingValues) { // ✅ accept padding
-    Column(modifier = Modifier.fillMaxSize()
-                              .padding(paddingValues),
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(paddingValues),
 
-           verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-           Text("Unit Converter")
+        Text("Unit Converter")
+        Spacer(modifier = Modifier.height(22.dp))
         OutlinedTextField(value = "Enter Value Here", onValueChange = {
 
         })
+
+        Spacer(modifier = Modifier.height(16.dp))
+
         Row() {
-            Box{
+            Box {
                 Button(onClick = {}) {
                     Text("Select")
-                    Icon(imageVector = Icons.Default.ArrowDropDown,
-                        contentDescription = "Drop Down")
+                    Icon(
+                        imageVector = Icons.Default.ArrowDropDown,
+                        contentDescription = "Drop Down"
+                    )
 
                 }
             }
 
-            Box{
+            Box {
                 Button(onClick = {}) {
                     Text("Select")
-                    Icon(imageVector = Icons.Default.ArrowDropDown,
-                        contentDescription = "Drop Down")
+                    Icon(
+                        imageVector = Icons.Default.ArrowDropDown,
+                        contentDescription = "Drop Down"
+                    )
 
                 }
             }
         }
+        Spacer(modifier = Modifier.height(16.dp))
 
         Text("Result: ")
     }
@@ -87,6 +101,13 @@ fun UnitConverter(paddingValues: PaddingValues) { // ✅ accept padding
 
 @Preview(showBackground = true)
 @Composable
-fun UnitConverterPreview(){
-    UnitConverter(paddingValues = PaddingValues(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 8.dp))
+fun UnitConverterPreview() {
+    UnitConverter(
+        paddingValues = PaddingValues(
+            start = 16.dp,
+            top = 8.dp,
+            end = 16.dp,
+            bottom = 8.dp
+        )
+    )
 }
