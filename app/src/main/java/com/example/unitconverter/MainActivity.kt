@@ -1,7 +1,6 @@
 package com.example.unitconverter
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -20,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.unitconverter.ui.theme.UnitConverterTheme
-import androidx.compose.foundation.layout.PaddingValues // ✅ import for PaddingValues
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
@@ -31,14 +30,17 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.platform.LocalContext
-import java.nio.file.WatchEvent
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import kotlin.math.roundToInt
-import kotlin.reflect.typeOf
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,23 +61,30 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+val textStyle = TextStyle(
+    fontFamily = FontFamily.Cursive,
+    color = Color.Blue,
+    fontSize = 40.sp,
+    fontWeight = FontWeight.Bold
+)
+
 @Composable
 fun UnitConverter(paddingValues: PaddingValues) {
-    var inputValue by remember { mutableStateOf("") }
+    var inputValue by remember { mutableStateOf("0.0") }
     var inputUnit by remember { mutableStateOf("Meters") }
-    var outputValue by remember { mutableStateOf("") }
+    var outputValue by remember { mutableStateOf("0.0") }
     var outputUnit by remember { mutableStateOf("Meters") }
     var iExpanded by remember { mutableStateOf(false) } // input expanded
     var oExpanded by remember { mutableStateOf(false) } // output expanded
-    var conversionFactor= remember { mutableStateOf(1.00) }
-    var oConversionFactor= remember { mutableStateOf(1.00) }
-    var result by remember { mutableStateOf(0.0) }
+    var conversionFactor= remember { mutableDoubleStateOf(1.00) }
+    var oConversionFactor= remember { mutableDoubleStateOf(1.00) }
+    var result by remember { mutableDoubleStateOf(0.0) }
 
 
     fun convertUnit(){
         // ?: Elvis Operator
         val inputUnitDouble = inputValue.toDoubleOrNull() ?: 0.0
-        result = (inputUnitDouble * conversionFactor.value * 100.0 / oConversionFactor.value).roundToInt()/100.0
+        result = (inputUnitDouble * conversionFactor.doubleValue * 100.0 / oConversionFactor.doubleValue).roundToInt()/100.0
         outputValue = result.toString()
     }
 
@@ -89,7 +98,8 @@ fun UnitConverter(paddingValues: PaddingValues) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text("Unit Converter",
-            style = MaterialTheme.typography.headlineLarge)
+            style = textStyle
+        )
         Spacer(modifier = Modifier.height(22.dp))
         OutlinedTextField(
             value = inputValue,
@@ -102,7 +112,7 @@ fun UnitConverter(paddingValues: PaddingValues) {
         )
         Spacer(modifier = Modifier.height(16.dp))
 
-        Row() {
+        Row{
             Box {
                 // input dropdown button
                 Button(
@@ -127,7 +137,7 @@ fun UnitConverter(paddingValues: PaddingValues) {
                         onClick = {
                             iExpanded = false
                             inputUnit = "Centimeters"
-                            conversionFactor.value = 0.01
+                            conversionFactor.doubleValue = 0.01
                             convertUnit()
                         }
                     )
@@ -137,7 +147,7 @@ fun UnitConverter(paddingValues: PaddingValues) {
                         onClick = {
                             iExpanded = false
                             inputUnit = "Meters"
-                            conversionFactor.value = 1.0
+                            conversionFactor.doubleValue = 1.0
                             convertUnit()
                         }
                     )
@@ -147,7 +157,7 @@ fun UnitConverter(paddingValues: PaddingValues) {
                         onClick = {
                             iExpanded = false
                             inputUnit = "Feet"
-                            conversionFactor.value = 0.3048
+                            conversionFactor.doubleValue = 0.3048
                             convertUnit()
                         }
                     )
@@ -157,7 +167,7 @@ fun UnitConverter(paddingValues: PaddingValues) {
                         onClick = {
                             iExpanded = false
                             inputUnit = "Millimeters"
-                            conversionFactor.value = 0.001
+                            conversionFactor.doubleValue = 0.001
                             convertUnit()
                         }
                     )
@@ -188,7 +198,7 @@ fun UnitConverter(paddingValues: PaddingValues) {
                         onClick = {
                             oExpanded = false
                             outputUnit = "Centimeters"
-                            oConversionFactor.value = 0.01
+                            oConversionFactor.doubleValue = 0.01
                             convertUnit()
                         }
                     )
@@ -198,7 +208,7 @@ fun UnitConverter(paddingValues: PaddingValues) {
                         onClick = {
                             oExpanded = false
                             outputUnit = "Meters"
-                            oConversionFactor.value = 1.00
+                            oConversionFactor.doubleValue = 1.00
                             convertUnit()
                         }
                     )
@@ -208,7 +218,7 @@ fun UnitConverter(paddingValues: PaddingValues) {
                         onClick = {
                             oExpanded = false
                             outputUnit = "Feet"
-                            oConversionFactor.value = 0.3048
+                            oConversionFactor.doubleValue = 0.3048
                             convertUnit()
                         }
                     )
@@ -218,7 +228,7 @@ fun UnitConverter(paddingValues: PaddingValues) {
                         onClick = {
                             oExpanded = false
                             outputUnit = "Millimeters"
-                            oConversionFactor.value = 0.001
+                            oConversionFactor.doubleValue = 0.001
                             convertUnit()
                         }
                     )
@@ -228,8 +238,8 @@ fun UnitConverter(paddingValues: PaddingValues) {
         }
         Spacer(modifier = Modifier.height(16.dp))
 
-        Text("Result: $outputValue $outputUnit",
-            style = MaterialTheme.typography.headlineMedium)
+        Text("$inputValue $inputUnit = $outputValue $outputUnit",
+            style = MaterialTheme.typography.headlineSmall)
     }
 }
 
