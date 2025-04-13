@@ -26,6 +26,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Button
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.ui.Alignment
@@ -66,7 +68,6 @@ fun UnitConverter(paddingValues: PaddingValues) { // ✅ accept padding
         OutlinedTextField(value = "Enter Value Here", onValueChange = {
 
         })
-
         Spacer(modifier = Modifier.height(16.dp))
 
         Row() {
@@ -79,8 +80,25 @@ fun UnitConverter(paddingValues: PaddingValues) { // ✅ accept padding
                     )
 
                 }
-            }
 
+                DropdownMenu(expanded = false, onDismissRequest = {}) {
+                    DropdownMenuItem(
+                        text = {Text("Centimeters")},
+                        onClick = {}
+                    )
+
+                    DropdownMenuItem(
+                        text = {Text("Meters")},
+                        onClick = {}
+                    )
+
+                    DropdownMenuItem(
+                        text = {Text("Feet")},
+                        onClick = {}
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.padding(16.dp))
             Box {
                 Button(onClick = {}) {
                     Text("Select")
@@ -90,6 +108,24 @@ fun UnitConverter(paddingValues: PaddingValues) { // ✅ accept padding
                     )
 
                 }
+
+                DropdownMenu(expanded = false, onDismissRequest = {}) {
+                    DropdownMenuItem(
+                        text = {Text("Centimeters")},
+                        onClick = {}
+                    )
+
+                    DropdownMenuItem(
+                        text = {Text("Meters")},
+                        onClick = {}
+                    )
+
+                    DropdownMenuItem(
+                        text = {Text("Feet")},
+                        onClick = {}
+                    )
+                }
+
             }
         }
         Spacer(modifier = Modifier.height(16.dp))
