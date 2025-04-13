@@ -40,6 +40,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeOptions
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.sp
 import kotlin.math.roundToInt
@@ -106,12 +107,16 @@ fun UnitConverter(paddingValues: PaddingValues) {
         OutlinedTextField(
             value = inputValue,
             onValueChange = {
-                inputValue = it
-                convertUnit()
-        },
+                if(it.toIntOrNull() != null || it.toDoubleOrNull() != null){
+                    inputValue = it
+                    convertUnit()
+                }
+                else if(it == "")
+                    inputValue = ""
+            },
             label = {Text("Enter Input Value")},
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            maxLines = 1
         )
         Spacer(modifier = Modifier.height(16.dp))
 
