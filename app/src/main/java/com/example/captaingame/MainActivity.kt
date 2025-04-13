@@ -13,6 +13,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -34,59 +35,63 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+fun checkStromOrTreasure(stromOrTreasure: MutableState<String>, treasureFound: MutableState<Int>){
+    if(Random.nextBoolean()){
+        stromOrTreasure.value = "Treasure Found"
+        treasureFound.value += 1
+    }
+    else stromOrTreasure.value = "Storm Ahead"
+}
+
 @Composable
-fun CaptainGame(modifier: Modifier = Modifier, paddingValues: PaddingValues){
+fun CaptainGame(paddingValues: PaddingValues) {
+    val stormOrTreasure = remember { mutableStateOf("") }
     val treasureFound = remember { mutableStateOf(0) }
     val direction = remember { mutableStateOf("North") }
 
     Column(modifier = Modifier.padding(paddingValues)) {
-        Text(text =  "Treasure Found: ${treasureFound.value}")
+        Text(text = "Treasure Found: ${treasureFound.value}")
         Text(text = "Current Direction: ${direction.value}")
-    }
 
-    Row{
-        Button(
-            onClick = {
-                direction.value = "North"
-                if(Random.nextBoolean()){
-                    treasureFound.value += 1
+
+        Row {
+            Button(
+                onClick = {
+                    direction.value = "North"
+                    checkStromOrTreasure(stormOrTreasure, treasureFound)
                 }
+            ) {
+                Text(text = "Sail North")
             }
-        ) {
-            Text(text = "Sail North")
+
+            Button(
+                onClick = {
+                    direction.value = "South"
+                    checkStromOrTreasure(stormOrTreasure, treasureFound)
+                }
+            ) {
+                Text(text = "Sail South")
+            }
+
+            Button(
+                onClick = {
+                    direction.value = "East"
+                    checkStromOrTreasure(stormOrTreasure, treasureFound)
+                }
+            ) {
+                Text(text = "Sail East")
+            }
+
+            Button(
+                onClick = {
+                    direction.value = "West"
+                    checkStromOrTreasure(stormOrTreasure, treasureFound)
+                }
+            ) {
+                Text(text = "Sail West")
+            }
         }
 
-        Button(
-            onClick = {
-                direction.value = "South"
-                if(Random.nextBoolean()){
-                    treasureFound.value += 1
-                }
-            }
-        ) {
-            Text(text = "Sail South")
-        }
-
-        Button(
-            onClick = {
-                direction.value = "East"
-                if(Random.nextBoolean()){
-                    treasureFound.value += 1
-                }
-            }
-        ) {
-            Text(text = "Sail East")
-        }
-
-        Button(
-            onClick = {
-                direction.value = "West"
-                if(Random.nextBoolean()){
-                    treasureFound.value += 1
-                }
-            }
-        ) {
-            Text(text = "Sail West")
-        }
+        Text(text = stormOrTreasure.value)
     }
 }
