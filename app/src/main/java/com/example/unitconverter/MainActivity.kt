@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,6 +26,7 @@ import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
 
 class MainActivity : ComponentActivity() {
@@ -48,7 +50,12 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun UnitConverter(paddingValues: PaddingValues) { // ✅ accept padding
-    Column(modifier = Modifier.fillMaxSize().padding(paddingValues)) {
+    Column(modifier = Modifier.fillMaxSize()
+                              .padding(paddingValues),
+
+           verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+    ) {
            Text("Unit Converter")
         OutlinedTextField(value = "Enter Value Here", onValueChange = {
 
